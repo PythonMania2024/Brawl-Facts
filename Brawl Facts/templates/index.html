@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reproductor de musica de BRAWL STARS</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #83a4d4, #b6fbff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    select {
+      padding: 12px;
+      width: 80%;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      background-color: #f8f8f8;
+      transition: all 0.3s ease;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 8px rgba(52, 152, 219, 0.4);
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
+
+    video, audio {
+      margin-top: 30px;
+      max-width: 100%;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .download-link {
+      margin-top: 15px;
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: #e74c3c;  /* Color rojo vibrante */
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .download-link:hover {
+      background-color: #c0392b;
+      transform: scale(1.1);
+    }
+  </style>
+  <style>
+    .button {
+      display: inline-block;
+      margin: 20px 10px 0;
+      padding: 12px 25px;
+      background-color: #ff6f61;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+  
+    .button:hover {
+      background-color: #e74c3c;
+    }
+  </style>
+  
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎧 Elige una animacion o video de Brawl Stars</h1>
+
+    <form method="POST">
+      <select name="media" required>
+        <option value="">-- Selecciona una opción --</option>
+        {% for nombre, archivo in opciones.items() %}
+          <option value="{{ archivo }}" {% if archivo == selected_file %}selected{% endif %}>{{ nombre }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <button type="submit">▶ Reproducir</button>
+    </form>
+
+    {% if selected_file %}
+      {% if selected_file.endswith('.mp4') %}
+        <video controls autoplay>
+          <source src="{{ url_for('static', filename='media/' + selected_file) }}" type="video/mp4">
+          Tu navegador no soporta este video.
+        </video>
+      {% elif selected_file.endswith('.mp3') %}
+        <audio controls autoplay>
+          <source src="{{ url_for('static', filename='media/' + selected_file) }}" type="audio/mpeg">
+          Tu navegador no soporta este audio.
+        </audio>
+      {% endif %}
+
+      <!-- Botón de descarga -->
+      <a href="{{ url_for('download_file', filename=selected_file) }}" class="download-link" download>📥 Descargar</a>
+
+      <!-- Botón para redirigir a la letra -->
+      <a href="{{ url_for('show_lyrics', filename=selected_file) }}" class="download-link">📝 Ver Letra</a>
+    {% endif %}
+    <a href="{{ url_for('animaciones') }}" class="button">🎞️ Ver Animaciones</a>
+    <a class="button" href="{{ url_for('curiosidades') }}">🧠 Datos Curiosos</a>
+
+  </div>
+
+
+</body>
+</html>

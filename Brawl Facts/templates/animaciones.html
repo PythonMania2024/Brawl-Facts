@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Animaciones de Brawl Stars</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1d2b64, #f8cdda);
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ffd369;
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+
+    form {
+      margin-bottom: 30px;
+    }
+
+    select {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e74c3c;
+    }
+
+    video {
+      width: 100%;
+      max-width: 720px;
+      border-radius: 15px;
+      margin-top: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 12px 25px;
+      background-color: #ff6f61;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎬 Selecciona una Animación</h1>
+
+  <form method="POST">
+    <select name="video" required>
+      <option value="" disabled selected>-- Elegí una animación --</option>
+      {% for nombre, archivo in videos.items() %}
+        <option value="{{ archivo }}" {% if selected_video == archivo %}selected{% endif %}>{{ nombre }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">▶ Ver</button>
+  </form>
+
+  {% if selected_video %}
+    <video controls autoplay>
+      <source src="{{ url_for('static', filename='animaciones/' + selected_video) }}" type="video/mp4">
+      Tu navegador no puede reproducir este video.
+    </video>
+  {% endif %}
+
+  <br>
+  <a class="back-button" href="{{ url_for('index') }}">⏪ Volver al inicio</a>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Datos Curiosos de Brawl Stars</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1CB5E0, #000851);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #ffd369;
+      margin-bottom: 30px;
+    }
+
+    .curio {
+      margin: 20px auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      text-align: left;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+
+    .curio h2 {
+      color: #ffca28;
+      margin-bottom: 10px;
+    }
+
+    .curio p {
+      font-size: 16px;
+      color: #ddd;
+    }
+
+    .button {
+      margin-top: 40px;
+      padding: 12px 25px;
+      background-color: #ff6f61;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background-color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 Datos Curiosos de Brawl Stars</h1>
+
+  {% for titulo, contenido in curiosidades.items() %}
+    <div class="curio">
+      <h2>{{ titulo }}</h2>
+      <p>{{ contenido }}</p>
+    </div>
+  {% endfor %}
+
+  <a class="button" href="{{ url_for('index') }}">⏪ Volver al inicio</a>
+
+</body>
+</html>
